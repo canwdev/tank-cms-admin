@@ -1,0 +1,1 @@
+{"global":{"$--color-primary":"#3F51B5","$--border-radius-base":"2px","$--box-shadow-base":"0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)"},"local":{"$--button-border-radius":"$--border-radius-base","$--button-medium-border-radius":"$--border-radius-base"}}

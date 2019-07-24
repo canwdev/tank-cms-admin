@@ -10,6 +10,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  //cursor: url("../assets/cursors/cursor.png"), auto;
 }
 
 label {
@@ -39,9 +40,12 @@ a:active {
 a,
 a:focus,
 a:hover {
-  cursor: pointer;
   color: inherit;
   text-decoration: none;
+}
+
+a[target], a[href], button, area, .el-menu-item, .user-avatar, .el-icon-caret-bottom {
+  cursor: url("../assets/cursors/hand.png"),auto !important;
 }
 
 div:focus {
@@ -62,4 +66,14 @@ div:focus {
 // main-container global css
 .app-container {
   padding: 20px;
+}
+
+
+.common-content-view {
+  overflow: auto;
+  padding: 10px;
+  .ccv-container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
 }

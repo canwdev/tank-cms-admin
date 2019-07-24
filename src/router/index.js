@@ -51,46 +51,42 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '首页', icon: 'home' }
     }]
   },
 
   {
-    path: '/example',
+    path: '/post',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'example' },
+    redirect: '/post/list',
+    meta: {
+      title: '文章',
+      icon: 'list'
+    },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        path: 'list',
+        name: 'postList',
+        component: () => import('@/views/post/list'),
+        meta: { title: '文章列表', icon: 'list2' }
       },
       {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
+        path: 'edit',
+        name: 'postEdit',
+        component: () => import('@/views/post/edit'),
+        meta: { title: '新增文章', icon: 'create' }
+      },
       {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        hidden: true,
+        path: 'detail',
+        name: 'postDetail',
+        component: () => import('@/views/post/detail'),
+        meta: { title: '查看', icon: 'eye-open' }
       }
     ]
   },
 
-  {
+  /* {
     path: '/nested',
     component: Layout,
     redirect: '/nested/menu1',
@@ -146,9 +142,9 @@ export const constantRoutes = [
         meta: { title: 'menu2' }
       }
     ]
-  },
+  },*/
 
-  {
+  /* {
     path: 'external-link',
     component: Layout,
     children: [
@@ -157,7 +153,7 @@ export const constantRoutes = [
         meta: { title: 'External Link', icon: 'link' }
       }
     ]
-  },
+  },*/
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

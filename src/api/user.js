@@ -8,7 +8,7 @@ export function login(data) {
   })
 }
 
-export function getInfo(token) {
+export function getUserInfo(token) {
   return request({
     url: '/user/info',
     method: 'get',
@@ -20,5 +20,6 @@ export function logout() {
   return request({
     url: '/user/logout',
     method: 'post'
+    // 这里无需token，因为已写入请求头
   })
 }
