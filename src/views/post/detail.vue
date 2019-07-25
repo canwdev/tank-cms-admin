@@ -4,8 +4,8 @@
       <h1 class="title">{{ postData.title }}</h1>
       <div class="description">
         <span>作者：{{ postData.author_ids || '/' }}</span>
-        <span v-if="postData.update_time">更新时间：{{ formatTime(new Date(postData.update_time)) }}</span>
-        <span v-else>发布时间：{{ formatTime(new Date(postData.create_time)) }}</span>
+        <span v-if="postData.update_time">更新时间：{{ formatTime(new Date(postData.updatedAt)) }}</span>
+        <span v-else>发布时间：{{ formatTime(new Date(postData.createdAt)) }}</span>
       </div>
       <div class="content" v-html="postData.content"></div>
     </div>
@@ -64,12 +64,16 @@
       height: 45px;
       color: #aaa;
     }
-    .content {
+    /deep/ .content {
       margin: 20px auto;
       font-size: 16px;
       line-height: 1.5;
       color: #212121;
       white-space: pre-line;
+
+      p {
+        margin: 0;
+      }
     }
   }
 </style>

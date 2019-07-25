@@ -23,3 +23,11 @@ export function updatePost(data) {
     data
   })
 }
+
+export function deletePost(params) {
+  return request({
+    url: '/post/delete',
+    method: 'get',
+    params
+  })
+}

@@ -74,7 +74,7 @@ export const constantRoutes = [
         path: 'edit',
         name: 'postEdit',
         component: () => import('@/views/post/edit'),
-        meta: { title: '新增文章', icon: 'create' }
+        meta: { title: '编辑文章', icon: 'create' }
       },
       {
         hidden: true,
