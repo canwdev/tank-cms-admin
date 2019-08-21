@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">登录 NB* Management</h3>
+        <h3 class="title">登录 WebSite* Management</h3>
       </div>
 
       <el-form-item prop="username">
@@ -49,7 +49,7 @@
       </div>
 
       <div class="tips">
-        <span>* NB === Node.js Blog</span>
+        <span>* WebSite === Node.js Blog</span>
       </div>
 
     </el-form>
