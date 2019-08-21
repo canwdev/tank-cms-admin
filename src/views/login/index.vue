@@ -185,7 +185,7 @@ $light_gray:#eee;
   min-height: 100%;
   width: 100%;
   background-color: $bg;
-  background-image: linear-gradient(to bottom, #0f142f 0%,rgba(233, 30, 99, 0.49) 100%);
+  background-image: linear-gradient(to bottom, #607D8B 0%, #9E9E9E 130%);
   overflow: hidden;
 
   .login-form {

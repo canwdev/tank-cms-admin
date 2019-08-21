@@ -27,7 +27,7 @@
     data() {
       return {
         title: defaultSettings.title,
-        logo: require('@/assets/img/logo.png')
+        logo: require('@/assets/images/logo.png')
       }
     }
   }
