@@ -74,7 +74,7 @@ export const constantRoutes = [
         path: 'edit',
         name: 'postEdit',
         component: () => import('@/views/post/edit'),
-        meta: { title: '编辑文章', icon: 'create' }
+        meta: { title: '编辑创建', icon: 'create' }
       },
       {
         hidden: true,
@@ -82,6 +82,30 @@ export const constantRoutes = [
         name: 'postDetail',
         component: () => import('@/views/post/detail'),
         meta: { title: '查看', icon: 'eye-open' }
+      }
+    ]
+  },
+
+  {
+    path: '/wt',
+    component: Layout,
+    redirect: '/wt/techtree',
+    meta: {
+      title: '科技树',
+      icon: 'branch'
+    },
+    children: [
+      {
+        path: 'techtree',
+        name: 'postList',
+        component: () => import('@/views/warthunder/techtree'),
+        meta: { title: '列表', icon: 'list2' }
+      },
+      {
+        path: 'edit',
+        name: 'postEdit',
+        component: () => import('@/views/warthunder/techtree'),
+        meta: { title: '编辑', icon: 'create' }
       }
     ]
   },
