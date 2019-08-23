@@ -51,7 +51,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '首页', icon: 'home' }
+      meta: { title: '首页', icon: 'wllpaper' }
     }]
   },
 
@@ -92,18 +92,18 @@ export const constantRoutes = [
     redirect: '/wt/techtree',
     meta: {
       title: '科技树',
-      icon: 'branch'
+      icon: 'tree'
     },
     children: [
       {
         path: 'techtree',
-        name: 'postList',
+        name: 'techTree',
         component: () => import('@/views/warthunder/techtree'),
         meta: { title: '列表', icon: 'list2' }
       },
       {
         path: 'edit',
-        name: 'postEdit',
+        name: 'techTreeEdit',
         component: () => import('@/views/warthunder/techtree'),
         meta: { title: '编辑', icon: 'create' }
       }
@@ -111,13 +111,24 @@ export const constantRoutes = [
   },
 
   {
-    path: '/file-upload',
+    path: '/tools/file-upload',
     component: Layout,
     children: [{
       path: '',
       name: 'FileUpload',
       component: () => import('@/views/tools/file-upload'),
       meta: { title: '文件上传', icon: 'upload' }
+    }]
+  },
+
+  {
+    path: '/tools/',
+    component: Layout,
+    children: [{
+      path: '',
+      name: 'tools',
+      component: () => import('@/views/tools/tools'),
+      meta: { title: '实用工具', icon: 'widgets' }
     }]
   },
 

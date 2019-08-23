@@ -1,26 +1,42 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
+    <div class="dashboard-text"><strong>Welcome! {{ name }}</strong></div>
+    <div>{{ parseTime(now) }}</div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import { parseTime } from '@/utils'
 
 export default {
-  name: 'Dashboard',
+  data: () => ({
+    now: new Date()
+  }),
   computed: {
     ...mapGetters([
       'name'
     ])
+  },
+  mounted() {
+    setInterval(() => {
+      this.now = new Date()
+    }, 1000)
+  },
+  methods: {
+    parseTime
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .dashboard {
+
   &-container {
-    margin: 30px;
+    background: url("~@/assets/images/bg.png") no-repeat center/cover;
+    color: #000;
+    padding: 30px;
+    min-height: calc(100vh - 50px);
   }
   &-text {
     font-size: 30px;

@@ -20,7 +20,12 @@
       <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
     </el-upload>
 
+    <div class="actions-wrap">
+      <el-button type="primary" icon="el-icon-refresh" @click="getList"></el-button>
+    </div>
+
     <el-table
+      v-loading="loading"
       :data="uploadedList"
       style="width: 100%">
       <el-table-column
@@ -37,6 +42,14 @@
           <el-link type="primary" :href="scope.row.webPath" target="_blank">{{ scope.row.webPath }}</el-link>
         </template>
       </el-table-column>
+      <el-table-column label="操作" width="100px">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            type="danger"
+            @click="handleDelete(scope.row.serverPath)">删除</el-button>
+        </template>
+      </el-table-column>
     </el-table>
 
   </div>
@@ -44,13 +57,14 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { getUploadedList } from '@/api/tools'
+  import { getUploadedList, deleteUploadedFile } from '@/api/tools'
 
   const baseApi = process.env.VUE_APP_BASE_API
   const baseHost = baseApi.substring(0, baseApi.lastIndexOf('/'))
 
   export default {
     data: () => ({
+      loading: false,
       uploadAction: baseApi + '/tools/upload',
       uploadedList: []
     }),
@@ -71,9 +85,10 @@
       handleSuccess(res, file, fileList) {
         // console.log(res, file, fileList)
         // const absPaht = 'http://' + res.data.host + res.data.path.substring('public'.length)
-        // this.$alert(absPaht, '上传成功！', {
-        //   type: 'success'
-        // })
+        this.$message({
+          message: '上传成功！',
+          type: 'success'
+        })
         this.getList()
       },
       handleError(res, file, fileList) {
@@ -82,6 +97,7 @@
         })
       },
       getList() {
+        this.loading = true
         getUploadedList().then(res => {
           // console.log(res)
           const files = []
@@ -95,6 +111,31 @@
           this.uploadedList = files.reverse()
         }).catch(e => {
           console.log(e)
+        }).finally(() => {
+          this.loading = false
+        })
+      },
+      handleDelete(serverPath) {
+        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          type: 'warning'
+        }).then(() => {
+
+          this.loading = true
+
+          const fileName = serverPath.substring('/upload/'.length)
+          deleteUploadedFile(fileName).then(res => {
+            this.$message({
+              message: '删除成功！',
+              type: 'success'
+            })
+          }).catch(e => {
+            console.log(e)
+          }).finally(() => {
+            this.loading = false
+            this.getList()
+          })
+
+        }).catch(() => {
         })
       }
     }
@@ -103,6 +144,12 @@
 
 <style lang="scss" scoped>
   .common-content-view {
+    position: relative;
+    .actions-wrap {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
     /deep/ .my-uploader {
       .el-upload, .el-upload-dragger {
         width: 100%;
