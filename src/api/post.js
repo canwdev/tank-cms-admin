@@ -8,6 +8,7 @@ export function getList(params) {
   })
 }
 
+// {id}
 export function getDetail(params) {
   return request({
     url: '/post/detail',
@@ -16,6 +17,7 @@ export function getDetail(params) {
   })
 }
 
+// {editMode, id, title, content}
 export function updatePost(data) {
   return request({
     url: '/post/update',

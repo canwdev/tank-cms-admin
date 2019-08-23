@@ -154,6 +154,9 @@
       .el-upload, .el-upload-dragger {
         width: 100%;
       }
+      .el-upload-list__item {
+        line-height: 2.2;
+      }
     }
   }
 

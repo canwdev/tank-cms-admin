@@ -104,7 +104,7 @@ export const constantRoutes = [
       {
         path: 'edit',
         name: 'techTreeEdit',
-        component: () => import('@/views/warthunder/techtree'),
+        component: () => import('@/views/warthunder/edit'),
         meta: { title: '编辑', icon: 'create' }
       }
     ]

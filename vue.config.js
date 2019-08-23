@@ -38,7 +38,7 @@ module.exports = {
     },
     proxy: {
       '/api': {
-        target: 'http://sagit.top:9002',
+        target: 'https://sagit.top:9002',
         pathRewrite: {
           '^/api': ''
         }
