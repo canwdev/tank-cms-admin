@@ -23,3 +23,10 @@ export function deleteUploadedFile(fileName) {
     data: { fileName }
   })
 }
+
+export function getSettings() {
+  return request({
+    url: '/tools/getSettings',
+    method: 'get',
+  })
+}

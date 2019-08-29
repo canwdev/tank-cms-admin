@@ -15,12 +15,16 @@
       </el-form-item>
     </el-form>
 
+    <el-row>
+      <el-button @click="handleGetSettings">getSettings</el-button>
+    </el-row>
+
   </div>
 </template>
 
 <script>
   import copyTextToClipboard from 'copy-text-to-clipboard'
-  import { encryptText } from '@/api/tools'
+  import { encryptText, getSettings } from '@/api/tools'
 
   export default {
     data: () => ({
@@ -41,13 +45,18 @@
       onSubmitEncrypt() {
         this.$refs.formEncrypt.validate(async(valid) => {
           if (valid) {
-
             this.formEncrypt.result = ''
             encryptText(this.formEncrypt.text).then(res => {
               this.formEncrypt.result = res.data
             }).catch(e => {})
-
           }
+        })
+      },
+      handleGetSettings() {
+        getSettings().then(res => {
+          console.log(res)
+        }).catch(e => {
+          console.error(e)
         })
       }
     }
