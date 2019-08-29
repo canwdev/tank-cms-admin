@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import axios from 'axios'
 
 // 获取加密的字符串（无法解密）
 export function encryptText(text) {
@@ -27,6 +28,19 @@ export function deleteUploadedFile(fileName) {
 export function getSettings() {
   return request({
     url: '/tools/getSettings',
-    method: 'get',
+    method: 'get'
   })
+}
+
+// {key,value,type}
+export function setSettings(settings) {
+  return request({
+    url: '/tools/setSettings',
+    method: 'post',
+    data: settings
+  })
+}
+
+export function getHitokoto() {
+  return axios.get('https://v1.hitokoto.cn/')
 }

@@ -17,6 +17,8 @@
 
     <el-row>
       <el-button @click="handleGetSettings">getSettings</el-button>
+      <el-button type="primary" @click="startCrawling">启动一言爬虫</el-button>
+      <el-button type="danger" @click="stopCrawling">停止一言爬虫</el-button>
     </el-row>
 
   </div>
@@ -24,7 +26,7 @@
 
 <script>
   import copyTextToClipboard from 'copy-text-to-clipboard'
-  import { encryptText, getSettings } from '@/api/tools'
+  import { encryptText, getSettings, setSettings, getHitokoto } from '@/api/tools'
 
   export default {
     data: () => ({
@@ -33,6 +35,9 @@
         result: ''
       }
     }),
+    mounted() {
+      this.crawlerInterval = null
+    },
     methods: {
       copyText(text) {
         if (copyTextToClipboard(text)) {
@@ -58,6 +63,52 @@
         }).catch(e => {
           console.error(e)
         })
+      },
+      startCrawling() {
+        clearInterval(this.crawlerInterval)
+        this.crawlerInterval = setInterval(() => {
+          this.handleCrawlingHitokoto()
+        }, 3000)
+
+        this.$message({
+          type: 'warning',
+          message: '爬虫已启动！'
+        })
+      },
+      stopCrawling() {
+        clearInterval(this.crawlerInterval)
+
+        this.$message({
+          type: 'warning',
+          message: '爬虫已停止！'
+        })
+      },
+      async handleCrawlingHitokoto() {
+        try {
+          let hitokoto = await getHitokoto()
+          hitokoto = hitokoto.data
+
+          console.log(hitokoto)
+
+          this.$message({
+            type: 'success',
+            message: hitokoto
+          })
+
+          const res = await setSettings({
+            key: hitokoto.id,
+            value: JSON.stringify(hitokoto),
+            type: 'hitokoto'
+          })
+          console.log(res)
+
+          this.$message({
+            type: 'success',
+            message: res.message
+          })
+        } catch (e) {
+          console.error(e)
+        }
       }
     }
   }
