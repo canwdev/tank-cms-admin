@@ -68,7 +68,7 @@
         clearInterval(this.crawlerInterval)
         this.crawlerInterval = setInterval(() => {
           this.handleCrawlingHitokoto()
-        }, 3000)
+        }, 1000)
 
         this.$message({
           type: 'warning',
@@ -88,7 +88,7 @@
           let hitokoto = await getHitokoto()
           hitokoto = hitokoto.data
 
-          console.log(hitokoto)
+          // console.log(hitokoto)
 
           this.$message({
             type: 'success',
@@ -100,14 +100,14 @@
             value: JSON.stringify(hitokoto),
             type: 'hitokoto'
           })
-          console.log(res)
+          // console.log(res)
 
           this.$message({
             type: 'success',
             message: res.message
           })
         } catch (e) {
-          console.error(e)
+          // console.error(e)
         }
       }
     }
