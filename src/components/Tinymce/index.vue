@@ -18,7 +18,8 @@ import toolbar from './toolbar'
 import load from './dynamicLoadScript'
 
 // why use this cdn, detail see https://github.com/PanJiaChen/tinymce-all-in-one
-const tinymceCDN = 'https://cdn.jsdelivr.net/npm/tinymce-all-in-one@4.9.3/tinymce.min.js'
+// https://cdn.jsdelivr.net/npm/tinymce-all-in-one@4.9.3/tinymce.min.js
+const tinymceCDN = '/lib/tinymce/tinymce.min.js'
 
 export default {
   name: 'Tinymce',
@@ -210,6 +211,10 @@ export default {
 </script>
 
 <style scoped>
+>>>.tox-tinymce {
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
 .tinymce-container {
   position: relative;
   line-height: normal;

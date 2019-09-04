@@ -2,11 +2,30 @@
   <div class="common-content-view">
 
     <el-form ref="form" v-loading="loading" :model="form" label-width="80px">
-      <el-form-item label="文章标题">
+      <el-form-item label="状态">
+        {{ editMode ? '你正在编辑一篇已存在的文章' : '你正在创建一篇新文章' }}
+      </el-form-item>
+
+      <el-form-item label="标题">
         <el-input v-model="form.title"></el-input>
       </el-form-item>
 
-      <el-form-item label="正文内容">
+      <el-form-item label="模式">
+        <el-switch
+          v-model="form.isMarkdown"
+          active-color="#795548"
+          inactive-color="#3f51b5"
+          active-text="Markdown"
+          inactive-text="富文本"
+        >
+        </el-switch>
+      </el-form-item>
+
+      <el-form-item v-if="form.isMarkdown" label="Markdown">
+        {{ form.content }}
+      </el-form-item>
+
+      <el-form-item v-else label="富文本">
         <tinymce v-model="form.content" :height="300" />
       </el-form-item>
 
@@ -29,7 +48,8 @@
     data: () => ({
       form: {
         title: '',
-        content: ''
+        content: '',
+        isMarkdown: false
       },
       editMode: false,
       id: null,

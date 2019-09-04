@@ -61,7 +61,7 @@ export const constantRoutes = [
     redirect: '/post/list',
     meta: {
       title: '文章',
-      icon: 'list'
+      icon: 'doc'
     },
     children: [
       {
