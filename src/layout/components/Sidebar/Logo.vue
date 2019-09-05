@@ -46,7 +46,7 @@
 .sidebar-logo-container {
   position: relative;
   width: 100%;
-  background: #01579B;
+  background: linear-gradient(45deg, #2196f3, #01579B);
   text-align: center;
   overflow: hidden;
   padding: 5px 0;
@@ -67,8 +67,8 @@
       color: #fff;
       font-weight: bold;
       font-size: 16px;
-      font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
       vertical-align: middle;
+      text-shadow: 0 2px 0px #00000078;
     }
   }
 

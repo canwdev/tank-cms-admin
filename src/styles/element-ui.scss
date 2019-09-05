@@ -1,5 +1,9 @@
 // cover some element-ui styles
 
+.el-menu-item.is-active {
+  font-weight: bold;
+}
+
 .el-breadcrumb__inner,
 .el-breadcrumb__inner a {
   font-weight: 400 !important;

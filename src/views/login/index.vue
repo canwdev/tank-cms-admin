@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">登录 WebSite* Management</h3>
+        <h3 class="title">登录</h3>
       </div>
 
       <el-form-item prop="username">
@@ -44,7 +44,7 @@
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登 录</el-button>
 
       <div class="tips">
-        <span>* WebSite === Node.js Blog</span>
+        <span>* Blog === Node.js Blog</span>
       </div>
 
     </el-form>
@@ -156,7 +156,7 @@ $cursor: #fff;
       caret-color: $cursor;
 
       &:-webkit-autofill {
-        box-shadow: 0 0 0px 100px #516080 inset !important;
+        box-shadow: 0 0 0px 100px #263238 inset !important;
         -webkit-text-fill-color: $cursor !important;
       }
     }
@@ -164,7 +164,7 @@ $cursor: #fff;
 
   .el-form-item {
     border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.1);
+    background: #263238; //rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     color: #454545;
   }
@@ -179,8 +179,7 @@ $light_gray:#eee;
 .login-container {
   min-height: 100%;
   width: 100%;
-  background-color: $bg;
-  background-image: linear-gradient(to bottom, #607D8B 0%, #9E9E9E 130%);
+  background: linear-gradient(45deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)) ,$bg url("https://api.neweb.top/bing.php") no-repeat center/cover;
   overflow: hidden;
 
   .login-form {
@@ -216,11 +215,13 @@ $light_gray:#eee;
     position: relative;
 
     .title {
-      font-size: 26px;
+      font-size: 36px;
       color: $light_gray;
       margin: 0px auto 40px auto;
       text-align: center;
-      font-weight: bold;
+      letter-spacing: 10px;
+      font-weight: 500;
+      text-shadow: 0px 2px 0px #00000078;
     }
   }
 

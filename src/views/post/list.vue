@@ -60,14 +60,18 @@
       >
       </el-table-column>
 
-      <el-table-column label="操作" width="150px">
+      <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
           <el-link
             :href="'https://sagit.top:88/posts/'+scope.row.id"
             target="_blank"
             style="margin-right: 5px;"
-          ><i class="el-icon-view el-icon--right"></i></el-link>
-
+          ><i class="el-icon-link"></i></el-link>
+          <el-link
+            target="_blank"
+            style="margin-right: 5px;"
+            @click="handleView(scope.row.id)"
+          ><i class="el-icon-view"></i></el-link>
           <el-button
             type="primary"
             size="mini"
