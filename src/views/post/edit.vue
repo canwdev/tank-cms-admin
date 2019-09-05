@@ -11,22 +11,25 @@
       </el-form-item>
 
       <el-form-item label="模式">
-        <el-switch
-          v-model="form.isMarkdown"
-          active-color="#795548"
-          inactive-color="#3f51b5"
-          active-text="Markdown"
-          inactive-text="富文本"
-        >
-        </el-switch>
+        <el-tooltip content="Tip: 富文本和Markdown互不相通，只能存储一种内容" placement="top-start">
+          <el-switch
+            v-model="form.isMarkdown"
+            active-color="#795548"
+            inactive-color="#3f51b5"
+            active-text="Markdown"
+            inactive-text="富文本"
+          >
+          </el-switch>
+        </el-tooltip>
+
       </el-form-item>
 
       <el-form-item v-if="form.isMarkdown" label="Markdown">
-        {{ form.content }}
+        <MarkdownEditor v-model="form.contentMarkdown"></MarkdownEditor>
       </el-form-item>
 
       <el-form-item v-else label="富文本">
-        <tinymce v-model="form.content" :height="300" />
+        <tinymce v-model="form.content" :height="500"/>
       </el-form-item>
 
       <el-form-item>
@@ -42,14 +45,17 @@
   import { getDetail, updatePost } from '@/api/post'
   import { formatTime } from '@/utils'
   import Tinymce from '@/components/Tinymce'
+  import MarkdownEditor from 'vue-simplemde'
+  import 'simplemde/dist/simplemde.min.css'
 
   export default {
-    components: { Tinymce },
+    components: { Tinymce, MarkdownEditor },
     data: () => ({
       form: {
         title: '',
         content: '',
-        isMarkdown: false
+        contentMarkdown: '',
+        isMarkdown: true
       },
       editMode: false,
       id: null,
@@ -75,8 +81,11 @@
         this.startLoading()
 
         getDetail({ id }).then(res => {
-          this.form = res.data
+          this.form.title = res.data.title
+          this.form.content = res.data.content
+          this.form.contentMarkdown = res.data.content
           this.editMode = true
+          this.form.isMarkdown = res.data.isMarkdown
           this.id = id
         }).catch(e => {
           console.error(e)
@@ -87,11 +96,15 @@
       },
       onSubmit() {
         this.startLoading()
+
+        const isMarkdown = this.form.isMarkdown
+
         updatePost({
           editMode: this.editMode,
           id: this.id,
           title: this.form.title,
-          content: this.form.content
+          content: isMarkdown ? this.form.contentMarkdown : this.form.content,
+          isMarkdown
         }).then(res => {
           console.log(res)
           this.$message({
@@ -128,6 +141,10 @@
   }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="scss">
+  .editor-toolbar.fullscreen,
+  .CodeMirror-fullscreen,
+  .editor-preview-side {
+    z-index: 9999;
+  }
 </style>

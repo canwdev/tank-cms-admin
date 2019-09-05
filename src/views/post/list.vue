@@ -1,7 +1,7 @@
 <template>
-  <div class="common-content-view">
+  <div class="common-content-view list-view">
 
-    <el-form size="mini" :inline="true" :model="formSearch" class="demo-form-inline">
+    <el-form size="mini" :inline="true" :model="formSearch" class="my-form-inline">
 
       <el-form-item label="标题">
         <el-input v-model="formSearch.title" clearable></el-input>
@@ -20,7 +20,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="onSearchSubmit">占坑，查询未实现</el-button>
+        <el-button type="primary" @click="onSearchSubmit" icon="el-icon-search">占坑</el-button>
       </el-form-item>
     </el-form>
 
@@ -60,22 +60,26 @@
       >
       </el-table-column>
 
-      <el-table-column label="操作" width="256px">
+      <el-table-column label="操作" width="150px">
         <template slot-scope="scope">
-          <el-button
-            size="mini"
-            @click="handleView(scope.row.id)"
-          >查看</el-button>
+          <el-link
+            :href="'https://sagit.top:88/posts/'+scope.row.id"
+            target="_blank"
+            style="margin-right: 5px;"
+          ><i class="el-icon-view el-icon--right"></i></el-link>
+
           <el-button
             type="primary"
             size="mini"
+            icon="el-icon-edit"
             @click="handleEdit(scope.row.id)"
-          >编辑</el-button>
+          ></el-button>
           <el-button
             type="danger"
             size="mini"
+            icon="el-icon-delete"
             @click="handleDelete(scope.row.id)"
-          >删除</el-button>
+          ></el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -188,14 +192,21 @@
 </script>
 
 <style lang="scss">
-.table-pagination-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 45px;
-  .pagination-desc {
-    font-size: 14px;
-    color: #9e9e9e;
+  .list-view {
+    .el-button + .el-button {
+      margin-left: 0;
+    }
   }
-}
+
+  .table-pagination-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 45px;
+
+    .pagination-desc {
+      font-size: 14px;
+      color: #9e9e9e;
+    }
+  }
 </style>

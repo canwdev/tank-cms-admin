@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'WebSite Management',
+  title: 'Blog Manager',
 
   /**
    * @type {boolean} true | false

@@ -28,7 +28,7 @@ export default {
     id: {
       type: String,
       default: function() {
-        return 'vue-tinymce-' + +new Date() + ((Math.random() * 1000).toFixed(0) + '')
+        return 'vue-tinymce-' + +new Date()
       }
     },
     value: {

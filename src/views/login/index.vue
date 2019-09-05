@@ -156,7 +156,7 @@ $cursor: #fff;
       caret-color: $cursor;
 
       &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px $bg inset !important;
+        box-shadow: 0 0 0px 100px #516080 inset !important;
         -webkit-text-fill-color: $cursor !important;
       }
     }
@@ -208,7 +208,7 @@ $light_gray:#eee;
     padding: 6px 5px 6px 15px;
     color: $dark_gray;
     vertical-align: middle;
-    width: 30px;
+    width: 40px;
     display: inline-block;
   }
 
