@@ -44,3 +44,18 @@ export function setSettings(settings) {
 export function getHitokoto() {
   return axios.get('https://v1.hitokoto.cn/')
 }
+
+export function saveHitokoto(hitokoto) {
+  return request({
+    url: '/tools/saveHitokoto',
+    method: 'post',
+    data: hitokoto
+  })
+}
+
+export function queryHitokoto() {
+  return request({
+    url: '/tools/queryHitokoto',
+    method: 'get'
+  })
+}

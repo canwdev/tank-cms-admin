@@ -19,6 +19,7 @@
       <el-button @click="handleGetSettings">getSettings</el-button>
       <el-button type="primary" @click="startCrawling">启动一言爬虫</el-button>
       <el-button type="danger" @click="stopCrawling">停止一言爬虫</el-button>
+      <el-button @click="queryHitokotoFromDB">queryHitokotoFromDB</el-button>
     </el-row>
 
   </div>
@@ -26,7 +27,7 @@
 
 <script>
   import copyTextToClipboard from 'copy-text-to-clipboard'
-  import { encryptText, getSettings, setSettings, getHitokoto } from '@/api/tools'
+  import { encryptText, getSettings, saveHitokoto, queryHitokoto, getHitokoto } from '@/api/tools'
 
   export default {
     data: () => ({
@@ -95,11 +96,7 @@
             message: hitokoto
           })
 
-          const res = await setSettings({
-            key: hitokoto.id,
-            value: JSON.stringify(hitokoto),
-            type: 'hitokoto'
-          })
+          const res = await saveHitokoto(hitokoto)
           // console.log(res)
 
           this.$message({
@@ -109,6 +106,13 @@
         } catch (e) {
           // console.error(e)
         }
+      },
+      queryHitokotoFromDB() {
+        queryHitokoto().then(res => {
+          console.log(res)
+        }).catch(e => {
+          console.error(e)
+        })
       }
     }
   }
