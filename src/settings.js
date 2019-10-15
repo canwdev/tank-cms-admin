@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'Blog Manager',
+  title: 'TankCMS',
 
   /**
    * @type {boolean} true | false
