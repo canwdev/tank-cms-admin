@@ -137,7 +137,7 @@ export const constantRoutes = [
     component: Layout,
     children: [
       {
-        path: 'http://sagit.top:8080/',
+        path: 'http://zencode.top:8080/',
         meta: { title: '前端页面', icon: 'outbound' }
       }
     ]
