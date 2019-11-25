@@ -2,10 +2,10 @@
   <div class="common-content-view">
 
     <!--传统文件上传-->
-    <form v-if="false" action="http://localhost:3001/api/tools/upload" method="POST" enctype="multipart/form-data">
+    <!--<form action="http://localhost:3001/api/tools/upload" method="POST" enctype="multipart/form-data">
       <input type="file" name="fileToUpload">
       <button type="submit">Submit</button>
-    </form>
+    </form>-->
 
     <el-upload
       class="my-uploader"

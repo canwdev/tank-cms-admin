@@ -46,7 +46,7 @@
   .sidebar-logo-container {
     position: relative;
     width: 100%;
-    background: linear-gradient(45deg, #2196f3, #01579B);
+    background: linear-gradient(45deg, $accentColor, darken($accentColor, 5));
     text-align: center;
     overflow: hidden;
     padding: 1px 0;

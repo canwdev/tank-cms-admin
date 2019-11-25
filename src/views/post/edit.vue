@@ -14,8 +14,8 @@
         <el-tooltip content="Tip: 富文本和Markdown互不相通，只能存储一种内容" placement="top-start">
           <el-switch
             v-model="form.isMarkdown"
-            active-color="#795548"
-            inactive-color="#3f51b5"
+            active-color="#10893E"
+            inactive-color="#10893E"
             active-text="Markdown"
             inactive-text="富文本"
           >

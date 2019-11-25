@@ -37,8 +37,8 @@ module.exports = {
       errors: true
     },
     proxy: {
-      '/api': {
-        target: 'https://zencode.top:9002',
+      '/api': { // 未使用。
+        target: 'http://localhost:3001/api',
         pathRewrite: {
           '^/api': ''
         }
