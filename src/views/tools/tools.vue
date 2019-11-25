@@ -11,7 +11,9 @@
       </el-form-item>
 
       <el-form-item>
-        <el-input :value="formEncrypt.result" readonly placeholder="加密结果"><el-button slot="append" @click="copyText(formEncrypt.result)" icon="el-icon-document-copy"></el-button></el-input>
+        <el-input :value="formEncrypt.result" readonly placeholder="加密结果">
+          <el-button slot="append" @click="copyText(formEncrypt.result)" icon="el-icon-document-copy"></el-button>
+        </el-input>
       </el-form-item>
     </el-form>
 
@@ -27,7 +29,7 @@
 
 <script>
   import copyTextToClipboard from 'copy-text-to-clipboard'
-  import { encryptText, getSettings, saveHitokoto, queryHitokoto, getHitokoto } from '@/api/tools'
+  import { encryptText, getHitokoto, getSettings, queryHitokoto, saveHitokoto } from '@/api/tools'
 
   export default {
     data: () => ({
@@ -54,7 +56,8 @@
             this.formEncrypt.result = ''
             encryptText(this.formEncrypt.text).then(res => {
               this.formEncrypt.result = res.data
-            }).catch(e => {})
+            }).catch(e => {
+            })
           }
         })
       },

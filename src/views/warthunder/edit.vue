@@ -8,6 +8,7 @@
 <script>
   import JsonEditor from '@/components/JsonEditor'
   import { getDetail, updatePost } from '@/api/post'
+
   const DEMO_ID = 43
 
   export default {

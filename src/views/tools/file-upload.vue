@@ -47,7 +47,8 @@
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.row.serverPath)">删除</el-button>
+            @click="handleDelete(scope.row.serverPath)">删除
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -57,7 +58,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { getUploadedList, deleteUploadedFile } from '@/api/tools'
+  import { deleteUploadedFile, getUploadedList } from '@/api/tools'
 
   const baseApi = process.env.VUE_APP_BASE_API
   const baseHost = baseApi.substring(0, baseApi.lastIndexOf('/'))
@@ -145,15 +146,18 @@
 <style lang="stylus" scoped>
   .common-content-view {
     position: relative;
+
     .actions-wrap {
       position: absolute;
       top: 10px;
       left: 10px;
     }
+
     >>> .my-uploader {
       .el-upload, .el-upload-dragger {
         width: 100%;
       }
+
       .el-upload-list__item {
         line-height: 2.2;
       }

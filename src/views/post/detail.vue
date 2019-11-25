@@ -57,6 +57,7 @@
       font-weight: bold;
       font-family: '华文中宋', '宋体', serif;
     }
+
     .description {
       display: flex;
       align-items: center;
@@ -64,6 +65,7 @@
       height: 45px;
       color: #aaa;
     }
+
     >>> .content {
       margin: 20px auto;
       font-size: 16px;

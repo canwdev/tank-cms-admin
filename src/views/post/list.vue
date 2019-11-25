@@ -106,7 +106,7 @@
 </template>
 
 <script>
-  import { getList, deletePost } from '@/api/post'
+  import { deletePost, getList } from '@/api/post'
   import { parseTime } from '@/utils'
 
   export default {
