@@ -63,25 +63,29 @@
       <el-table-column label="操作" width="200px">
         <template slot-scope="scope">
           <el-link
-            :href="'https://zencode.top:88/posts/'+scope.row.id"
+            :href="`${frontendBaseUrl}/posts/`+scope.row.id"
             target="_blank"
             style="margin-right: 5px;"
+            title="在前端网站打开"
           ><i class="el-icon-link"></i></el-link>
           <el-link
             target="_blank"
             style="margin-right: 5px;"
+            title="查看预览"
             @click="handleView(scope.row.id)"
           ><i class="el-icon-view"></i></el-link>
           <el-button
             type="primary"
             size="mini"
             icon="el-icon-edit"
+            title="编辑条目"
             @click="handleEdit(scope.row.id)"
           ></el-button>
           <el-button
             type="danger"
             size="mini"
             icon="el-icon-delete"
+            title="删除条目"
             @click="handleDelete(scope.row.id)"
           ></el-button>
         </template>
@@ -108,9 +112,11 @@
 <script>
   import { deletePost, getList } from '@/api/post'
   import { parseTime } from '@/utils'
+  import { frontendBaseUrl } from '@/settings'
 
   export default {
     data: () => ({
+      frontendBaseUrl,
       formSearch: {
         title: '',
         content: '',

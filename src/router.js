@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import {frontendBaseUrl} from '@/settings'
 /* Layout */
 import Layout from '@/layout'
 
@@ -136,7 +137,7 @@ export const constantRoutes = [
     component: Layout,
     children: [
       {
-        path: 'http://zencode.top:88/',
+        path: frontendBaseUrl,
         meta: { title: '前端页面', icon: 'outbound' }
       }
     ]

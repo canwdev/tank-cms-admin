@@ -1,5 +1,5 @@
 module.exports = {
-
+  frontendBaseUrl: 'http://zencode.top:88',
   title: 'TankCMS',
 
   /**
