@@ -195,7 +195,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="stylus">
   .list-view {
     .el-button + .el-button {
       margin-left: 0;

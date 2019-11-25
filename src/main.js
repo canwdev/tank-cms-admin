@@ -6,7 +6,7 @@ import ElementUI from 'element-ui'
 import '@/styles/element-theme/index.css'
 import locale from 'element-ui/lib/locale/lang/zh-CN' // lang i18n
 
-import '@/styles/index.scss' // global css
+import '@/styles/index.styl' // global css
 
 import App from './App'
 import store from './store'

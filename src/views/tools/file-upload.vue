@@ -142,7 +142,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="stylus" scoped>
   .common-content-view {
     position: relative;
     .actions-wrap {
@@ -150,7 +150,7 @@
       top: 10px;
       left: 10px;
     }
-    /deep/ .my-uploader {
+    >>> .my-uploader {
       .el-upload, .el-upload-dragger {
         width: 100%;
       }

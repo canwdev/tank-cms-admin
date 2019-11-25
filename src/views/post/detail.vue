@@ -46,7 +46,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="stylus" scoped>
   .post-detail-wrap {
     max-width: 800px;
     margin: 0 auto;
@@ -64,7 +64,7 @@
       height: 45px;
       color: #aaa;
     }
-    /deep/ .content {
+    >>> .content {
       margin: 20px auto;
       font-size: 16px;
       line-height: 1.5;

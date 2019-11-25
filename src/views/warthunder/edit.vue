@@ -70,7 +70,7 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
   .common-content-view {
     padding: 0;
   }

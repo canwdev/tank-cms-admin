@@ -50,9 +50,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-  @import "~@/styles/mixin.scss";
-  @import "~@/styles/variables.scss";
+<style lang="stylus" scoped>
+  @import "~@/styles/variables.styl";
 
   .app-wrapper {
     @include clearfix;
@@ -79,7 +78,7 @@ export default {
     top: 0;
     right: 0;
     z-index: 9;
-    width: calc(100% - #{$sideBarWidth});
+    width: calc(100% - $sideBarWidth);
     transition: width 0.28s;
   }
 

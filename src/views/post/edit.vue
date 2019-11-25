@@ -141,7 +141,7 @@
   }
 </script>
 
-<style lang="scss">
+<style>
   .editor-toolbar.fullscreen,
   .CodeMirror-fullscreen,
   .editor-preview-side {
