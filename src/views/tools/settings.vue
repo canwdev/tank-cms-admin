@@ -23,7 +23,7 @@
         <span>
           <span class="title">{{ data.title }}</span>
           <el-badge type="success" :value="'id:'+data.id"/>
-          <el-badge type="warning" :value="'排序:'+data.priority" @click.native="handleNodeEdit(data, 'priority')"/>
+          <el-badge type="warning" :value="'优先级:'+data.priority" @click.native="handleNodeEdit(data, 'priority')"/>
           <el-badge type="info" :value="data.url" @click.native="handleNodeEdit(data, 'url')"/>
           </span>
         <span>
