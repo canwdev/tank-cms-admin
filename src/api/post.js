@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 
+// params={limit, offset}
 export function getList(params) {
   return request({
     url: '/post/list',
@@ -8,7 +9,7 @@ export function getList(params) {
   })
 }
 
-// {id}
+// params={id}
 export function getDetail(params) {
   return request({
     url: '/post/detail',
@@ -17,7 +18,7 @@ export function getDetail(params) {
   })
 }
 
-// {editMode, id, title, content}
+// data={editMode, id, title, content}
 export function updatePost(data) {
   return request({
     url: '/post/update',
@@ -26,6 +27,7 @@ export function updatePost(data) {
   })
 }
 
+// params={id}
 export function deletePost(params) {
   return request({
     url: '/post/delete',

@@ -40,6 +40,6 @@
 
 <style lang="stylus" scoped>
   .svg-icon {
-    transform: scale(1.3);
+    transform: scale(1.2);
   }
 </style>

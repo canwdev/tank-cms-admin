@@ -56,6 +56,17 @@ export const constantRoutes = [
   },
 
   {
+    path: '/settings/',
+    component: Layout,
+    children: [{
+      path: '',
+      name: 'settings',
+      component: () => import('@/views/tools/settings'),
+      meta: { title: '网站设置', icon: 'widgets' }
+    }]
+  },
+
+  {
     path: '/post',
     component: Layout,
     redirect: '/post/list',

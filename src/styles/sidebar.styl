@@ -28,6 +28,7 @@
     }
 
     .scrollbar-wrapper {
+      background #fff
       overflow-x: hidden !important;
     }
 
@@ -159,7 +160,7 @@
       .sidebar-container {
         pointer-events: none;
         transition-duration: 0.3s;
-        transform: translate3d(-$sideBarWidth, 0, 0);
+        transform: "translate3d(-%s, 0, 0)" % $sideBarWidth;
       }
     }
   }
