@@ -1,11 +1,13 @@
 <template>
   <div class="dashboard-container">
+    <HelloWorld msg="TankCMS"/>
     <div class="dashboard-text"><strong>Welcome! {{ name }}</strong></div>
     <div>{{ parseTime(now) }}</div>
   </div>
 </template>
 
 <script>
+
   import { mapGetters } from 'vuex'
   import { parseTime } from '@/utils'
 

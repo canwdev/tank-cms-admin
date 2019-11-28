@@ -15,6 +15,10 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+import TankUI from 'tank-ui'
+
+Vue.use(TankUI)
+
 // set ElementUI lang to EN
 Vue.use(ElementUI, { locale })
 

@@ -24,14 +24,24 @@
       <el-button @click="queryHitokotoFromDB">queryHitokotoFromDB</el-button>
     </el-row>
 
+    <Live2D
+      model-path="https://zencode.top:81/live2d-models/suzukaze_aoba/index.json"
+      :message="'Hello World!'"
+      :show-message="true"
+      @onLive2DClick="()=>{}"
+    ></Live2D>
   </div>
 </template>
 
 <script>
+  import Live2D from 'live2d-vue-component'
   import copyTextToClipboard from 'copy-text-to-clipboard'
   import { encryptText, getHitokoto, getSettings, queryHitokoto, saveHitokoto } from '@/api/tools'
 
   export default {
+    components:{
+      Live2D
+    },
     data: () => ({
       formEncrypt: {
         text: '',
