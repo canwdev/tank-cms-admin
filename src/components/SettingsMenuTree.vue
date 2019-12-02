@@ -163,12 +163,16 @@
 </script>
 
 <style lang="stylus" scoped>
-  .el-card {
-    overflow: auto
-    >>>.el-card__body {
-      min-width: 800px
+
+  .el-tree {
+    overflow-y hidden
+    overflow-x auto
+
+    >>> .el-tree-node>.el-tree-node__children {
+      overflow unset
     }
   }
+
   .custom-tree-node {
     flex: 1;
     display: flex;
