@@ -47,7 +47,7 @@
       </el-button>
 
       <div class="tips">
-        <span>* Blog === Node.js Blog</span>
+        <span>* Powered by TankCMS</span>
       </div>
 
     </el-form>

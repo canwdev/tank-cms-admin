@@ -32,7 +32,7 @@ export function getSettings() {
   })
 }
 
-// {key,value,type}
+// {id?, key,value,type}
 export function setSettings(settings) {
   return request({
     url: '/tools/setSettings',

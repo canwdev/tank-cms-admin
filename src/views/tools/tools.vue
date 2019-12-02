@@ -18,7 +18,6 @@
     </el-form>
 
     <el-row>
-      <el-button @click="handleGetSettings">getSettings</el-button>
       <el-button type="primary" @click="startCrawling">启动一言爬虫</el-button>
       <el-button type="danger" @click="stopCrawling">停止一言爬虫</el-button>
       <el-button @click="queryHitokotoFromDB">queryHitokotoFromDB</el-button>
@@ -36,7 +35,7 @@
 <script>
   import Live2D from 'live2d-vue-component'
   import copyTextToClipboard from 'copy-text-to-clipboard'
-  import { encryptText, getHitokoto, getSettings, queryHitokoto, saveHitokoto } from '@/api/tools'
+  import { encryptText, getHitokoto, queryHitokoto, saveHitokoto } from '@/api/tools'
 
   export default {
     components:{
@@ -69,13 +68,6 @@
             }).catch(e => {
             })
           }
-        })
-      },
-      handleGetSettings() {
-        getSettings().then(res => {
-          console.log(res)
-        }).catch(e => {
-          console.error(e)
         })
       },
       startCrawling() {
