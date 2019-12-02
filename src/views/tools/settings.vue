@@ -1,6 +1,13 @@
 <template>
   <div class="common-content-view">
 
+
+    <el-row :gutter="10">
+      <el-col :span="24">
+        <SettingsBanner/>
+      </el-col>
+    </el-row>
+
     <el-row :gutter="10">
 
       <el-col :span="14">
@@ -20,15 +27,19 @@
 <script>
   import SettingsMenuTree from '@/components/SettingsMenuTree'
   import SettingsWebsiteMeta from '@/components/SettingsWebsiteMeta'
+  import SettingsBanner from '@/components/SettingsBanner'
 
   export default {
     components: {
-      SettingsMenuTree,SettingsWebsiteMeta
+      SettingsMenuTree, SettingsWebsiteMeta, SettingsBanner
     }
   }
 </script>
 
 <style lang="stylus" scoped>
   .common-content-view {
+  }
+  .el-row {
+    margin-bottom: 10px
   }
 </style>

@@ -2,8 +2,8 @@
   <el-card
     v-loading="loading"
   >
-    <div slot="header" class="clearfix">
-      <span>菜单设置</span>
+    <div slot="header">
+      <span style="font-weight:bold;">菜单设置</span>
     </div>
 
     <el-button
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-  import { deleteMenu, getMenuTree, updateMenu } from '@/api/menu'
+  import { deleteMenu, getMenuTree, updateMenu } from '@/api/website'
 
   export default {
     data() {
@@ -163,6 +163,12 @@
 </script>
 
 <style lang="stylus" scoped>
+  .el-card {
+    overflow: auto
+    >>>.el-card__body {
+      min-width: 800px
+    }
+  }
   .custom-tree-node {
     flex: 1;
     display: flex;
