@@ -24,6 +24,7 @@
     </el-row>
 
     <Live2D
+      class="l2d"
       model-path="https://zencode.top:81/live2d-models/suzukaze_aoba/index.json"
       :message="'Hello World!'"
       :show-message="true"
@@ -33,7 +34,8 @@
 </template>
 
 <script>
-  import Live2D from 'live2d-vue-component'
+  import 'live2d-vue-component/lib/live2d.css'
+  import {Live2D} from 'live2d-vue-component'
   import copyTextToClipboard from 'copy-text-to-clipboard'
   import { encryptText, getHitokoto, queryHitokoto, saveHitokoto } from '@/api/tools'
 
@@ -122,3 +124,11 @@
     }
   }
 </script>
+
+<style scoped>
+  .l2d {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+  }
+</style>

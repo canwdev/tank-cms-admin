@@ -5001,10 +5001,10 @@ lines-and-columns@^1.1.6:
   resolved "https://registry.npm.taobao.org/lines-and-columns/download/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
-live2d-vue-component@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.npmjs.org/live2d-vue-component/-/live2d-vue-component-0.1.2.tgz#75f5f28afd49a68ff199e78da463c0d8817d15df"
-  integrity sha512-2hFlZcQ/gAYdXy9xB8VGLAnOLEgQa/K42ra0QnbdDiPwQmFIPDdU31i+R+TGEif9GRsmFY8mqc3YCK+1zF6L6A==
+live2d-vue-component@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.npmjs.org/live2d-vue-component/-/live2d-vue-component-0.1.5.tgz#998722375e694569de637be5c064dc54e0ead709"
+  integrity sha512-Retg5EqBB24WX/KxjAoOhI5ESnsPtsAb8tP+RnsziCF4dvYoveKvRVexlfn9dljlNs6G869cMTZjEDpzFsJ2JA==
   dependencies:
     core-js "^3.4.3"
     imports-loader "^0.8.0"
@@ -7972,10 +7972,10 @@ table@^5.2.3:
     slice-ansi "^2.1.0"
     string-width "^3.0.0"
 
-tank-ui@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.npmjs.org/tank-ui/-/tank-ui-0.1.2.tgz#84a25df2d17daa3784c850d425e6418ed873f0a6"
-  integrity sha512-NvlQN/niQI7kCzk/7Oxki9A5iw8V1Hu+lExreS4nZsxmU6bZaMnNyxmk+NqRJY85YZZwUCmv1ZObDMhCWp8iQA==
+tank-ui@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.npmjs.org/tank-ui/-/tank-ui-0.1.5.tgz#b9cae18440e3b4a66303fc205cba4823c0305e83"
+  integrity sha512-TJtptq8uufNdjBzKuLjHy9pLcqjFzH5QkCS1GkBLhAI1UEkSeFpe80VaCpyS0AT5jPk8TA6LNXJl4KP65XkQ+A==
   dependencies:
     core-js "^3.4.3"
     vue "^2.6.10"
