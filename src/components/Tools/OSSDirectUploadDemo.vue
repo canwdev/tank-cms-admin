@@ -24,7 +24,7 @@
     },
     methods: {
       handleGetOSSPolicy() {
-        getOSSPolicy().then(res=>{
+        getOSSPolicy().then(res => {
           console.log(res)
         })
       },

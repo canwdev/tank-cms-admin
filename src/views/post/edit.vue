@@ -55,7 +55,7 @@
         title: '',
         content: '',
         contentMarkdown: '',
-        isMarkdown: true
+        isMarkdown: false
       },
       editMode: false,
       id: null,

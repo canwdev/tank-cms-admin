@@ -2,7 +2,7 @@
   <div :class="{fullscreen:fullscreen}" class="tinymce-container" :style="{width:containerWidth}">
     <textarea :id="tinymceId" class="tinymce-textarea"/>
     <div class="editor-custom-btn-container">
-      <editorImage color="#1890ff" class="editor-upload-btn" @successCBK="imageSuccessCBK"/>
+      <UploadImageOSS @successCBK="imageSuccessCBK"/>
     </div>
   </div>
 </template>
@@ -12,7 +12,7 @@
    * docs:
    * https://panjiachen.github.io/vue-element-admin-site/feature/component/rich-editor.html#tinymce
    */
-  import editorImage from './components/EditorImage'
+  import UploadImageOSS from './UploadImageOSS'
   import plugins from './plugins'
   import toolbar from './toolbar'
   import load from './dynamicLoadScript'
@@ -23,7 +23,7 @@
 
   export default {
     name: 'Tinymce',
-    components: { editorImage },
+    components: { UploadImageOSS },
     props: {
       id: {
         type: String,
@@ -232,8 +232,9 @@
 
   .editor-custom-btn-container {
     position: absolute;
-    right: 4px;
-    top: 4px;
+    right: 5px;
+    top: 5px;
+    display: flex;
     /*z-index: 2005;*/
   }
 

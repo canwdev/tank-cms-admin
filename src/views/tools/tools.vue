@@ -30,7 +30,7 @@
 <script>
   import ToolEncrypt from '@/components/Tools/ToolEncrypt'
   import ToolHitokoto from '@/components/Tools/ToolHitokoto'
-  import ToolOSSUpload from '@/components/Tools/ToolOSSUpload'
+  import ToolOSSUpload from '@/components/Tools/OSSDirectUploadDemo'
   import 'live2d-vue-component/lib/live2d.css'
   import {Live2D} from 'live2d-vue-component'
 
