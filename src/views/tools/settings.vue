@@ -39,7 +39,4 @@
 <style lang="stylus" scoped>
   .common-content-view {
   }
-  .el-row {
-    margin-bottom: 10px
-  }
 </style>

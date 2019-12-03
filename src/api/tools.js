@@ -59,3 +59,10 @@ export function queryHitokoto() {
     method: 'get'
   })
 }
+
+export function getOSSPolicy() {
+  return request({
+    url: '/tools/oss-policy',
+    method: 'get'
+  })
+}
