@@ -47,6 +47,8 @@
             encryptText(this.formEncrypt.text).then(res => {
               this.formEncrypt.result = res.data
             }).catch(e => {
+              console.error(e)
+              this.$message.error(e.message || 'Error')
             })
           }
         })

@@ -47,11 +47,11 @@ service.interceptors.response.use(
 
     // if the custom code is not 0, it is judged as an error.
     if (res.code !== 0) {
-      Message({
-        message: res.message || 'Error',
-        type: 'error',
-        duration: 5 * 1000
-      })
+      // Message({
+      //   message: res.message || 'Error',
+      //   type: 'warning',
+      //   duration: 5 * 1000
+      // })
 
       // CODE_TOKEN_EXPIRE: -900
       if (res.code === -900) {
@@ -72,13 +72,16 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
-    Message({
-      message: error.message,
-      type: 'error',
-      duration: 5 * 1000
+    // 处理 500, 400 之类的服务端错误
+    console.log('onRejected', {error}) // for debug
+    // Message({
+    //   message: error.message,
+    //   type: 'error',
+    //   duration: 5 * 1000
+    // })
+    return Promise.reject({
+      message: error.response.data
     })
-    return Promise.reject(error)
   }
 )
 

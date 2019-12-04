@@ -182,7 +182,7 @@
   .login-container {
     min-height: 100%;
     width: 100%;
-    background: linear-gradient(45deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), $bg url("https://api.neweb.top/bing.php") no-repeat center / cover;
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), $bg url("~@/assets/images/bg.png") no-repeat center / cover;
     overflow: hidden;
 
     .login-form {
