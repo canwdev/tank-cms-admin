@@ -5,6 +5,7 @@
       { label: '键', prop: 'key', readOnly: true },
       { label: '值', prop: 'value' },
     ]"
+
     :function-get-list="getSettings"
     :function-update-item="setSettings"
   />

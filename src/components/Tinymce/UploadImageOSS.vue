@@ -147,8 +147,7 @@
             url: _self.uploadHost + '/' + fileName,
             hasSuccess: false,
             uid: uid,
-            width:
-            this.width,
+            width: this.width,
             height: this.height
           }
         }

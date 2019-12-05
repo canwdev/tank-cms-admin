@@ -131,9 +131,20 @@
       tblLoading: false
     }),
     watch: {
-      tblCurPage() {
+      tblCurPage(nv) {
         this.fetchList()
+        // 更新router query
+        this.$router.replace({
+          path: this.$route.path, query: {
+            ...this.$route.query,
+            'posts_page': nv
+          }
+        })
       }
+    },
+    created(){
+      // 获取 router query
+      this.pageCurrent = parseInt(this.$route.query['posts_page']) || 1
     },
     mounted() {
       this.fetchList()
@@ -205,18 +216,6 @@
   .list-view {
     .el-button + .el-button {
       margin-left: 0;
-    }
-  }
-
-  .table-pagination-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 45px;
-
-    .pagination-desc {
-      font-size: 14px;
-      color: #9e9e9e;
     }
   }
 </style>

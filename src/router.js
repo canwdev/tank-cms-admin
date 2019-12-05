@@ -62,7 +62,7 @@ export const constantRoutes = [
       path: '',
       name: 'settings',
       component: () => import('@/views/tools/settings'),
-      meta: { title: '网站设置', icon: 'widgets' }
+      meta: { title: '网站设置', icon: 'web' }
     }]
   },
 
@@ -119,6 +119,17 @@ export const constantRoutes = [
         meta: { title: '编辑', icon: 'create' }
       }
     ]
+  },
+
+  {
+    path: '/recruit/',
+    component: Layout,
+    children: [{
+      path: '',
+      name: 'recruit',
+      component: () => import('@/views/tools/recruit'),
+      meta: { title: '招聘管理', icon: 'people-hello' }
+    }]
   },
 
   {

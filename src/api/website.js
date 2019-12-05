@@ -52,3 +52,38 @@ export function deleteMenu(params) {
     params
   })
 }
+
+// params={limit?, offset?}
+export function getRecruit(params) {
+  const { limit, offset } = params
+
+  return request({
+    url: '/recruit/list',
+    method: 'get',
+    params: {
+      showAll: true,
+      jobsOnly: true,
+      limit,
+      offset
+    }
+  })
+}
+
+export function getRecruitTypes() {
+  return request({
+    url: '/recruit/types',
+    method: 'get',
+    params: {
+      grouped: true
+    }
+  })
+}
+
+// data={id?, title, desc, t_category_id, t_area_id, t_job_id, hidden, priority}
+export function updateRecruit(data) {
+  return request({
+    url: '/recruit/update',
+    method: 'post',
+    data
+  })
+}

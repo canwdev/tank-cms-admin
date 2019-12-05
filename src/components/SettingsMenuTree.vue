@@ -100,6 +100,7 @@
             this.loadMenuTree()
           }).catch(e => {
             console.error(e)
+            this.$message.error(e.message)
           })
 
         }).catch(e => {
@@ -115,6 +116,7 @@
             this.loadMenuTree()
           }).catch(e => {
             console.error(e)
+            this.$message.error(e.message)
           })
 
         }).catch(e => {
@@ -139,6 +141,7 @@
             this.loadMenuTree()
           }).catch(e => {
             console.error(e)
+            this.$message.error(e.message)
           })
 
         }).catch(e => {
@@ -154,6 +157,7 @@
             this.loadMenuTree()
           }).catch(e => {
             console.error(e)
+            this.$message.error(e.message)
           })
         }).catch(() => {
         })
