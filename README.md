@@ -2,6 +2,8 @@
 
 ## 启动项目
 
+说明：在本地运行，还需依赖 [TankCMS](https://github.com/canwdev/tank-cms) 作为后端服务
+
 ```sh
 yarn install
 
