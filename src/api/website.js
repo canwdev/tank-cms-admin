@@ -69,6 +69,20 @@ export function getRecruit(params) {
   })
 }
 
+// params={limit?, offset?, title, }
+export function searchRecruit(params) {
+  // const { limit, offset } = params
+
+  return request({
+    url: '/recruit/find',
+    method: 'get',
+    params: {
+      showAll: true,
+      ...params
+    }
+  })
+}
+
 export function getRecruitTypes() {
   return request({
     url: '/recruit/types',
@@ -85,5 +99,14 @@ export function updateRecruit(data) {
     url: '/recruit/update',
     method: 'post',
     data
+  })
+}
+
+// params={id}
+export function deleteRecruit(params) {
+  return request({
+    url: '/recruit/delete',
+    method: 'get',
+    params
   })
 }

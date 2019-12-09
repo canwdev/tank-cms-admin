@@ -19,6 +19,56 @@
       </span>
     </div>
 
+    <!-- 搜索 -->
+    <el-form
+      v-if="allowedActions['search']"
+      size="mini"
+      :inline="true"
+      :model="formSearch"
+      class="my-form-inline"
+    >
+
+      <el-form-item
+        v-for="(item,index) in configRow.filter(v=>v.searchable)"
+        :key="index"
+        :label="item.label"
+      >
+        <el-checkbox
+          v-if="item.type==='boolean'"
+          v-model="formSearch[item.prop]"
+        />
+
+        <el-select
+          v-else-if="item.type==='select'"
+          v-model="formSearch[item.prop]"
+          :placeholder="'筛选 '+item.label"
+          clearable
+        >
+          <el-option
+            v-for="item in configRow[index].selectData"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          >
+          </el-option>
+        </el-select>
+
+        <el-input
+          v-else
+          v-model="formSearch[item.prop]"
+          :placeholder="item.label"
+          clearable
+          @keyup.enter.native="handleSearch"
+        />
+
+
+      </el-form-item>
+
+      <el-form-item>
+        <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+      </el-form-item>
+    </el-form>
+
     <el-table
       :data="dataList"
       width="auto"
@@ -55,7 +105,7 @@
             v-else-if="v.type==='select'"
             :title="scope.row[v.prop]"
           >
-            {{ selectTypeFilter(configRow[i].selectData, scope.row[v.prop]) }}
+            {{ selectTypeLabel(configRow[i].selectData, scope.row[v.prop]) }}
           </span>
 
           <span
@@ -81,6 +131,7 @@
           </el-button>
           <el-button
             v-if="allowedActions['delete']"
+            type="danger"
             size="mini"
             @click="handleDelete(scope.row)"
           >删除
@@ -105,43 +156,44 @@
 
     <!-- 编辑弹窗 -->
     <el-dialog
-      :title="form.id ? `编辑（id=${form.id}）` : '新增'"
+      :title="formEdit.id ? `编辑（id=${formEdit.id}）` : '新增'"
       :visible.sync="dialogEditVisible"
       :show-close="false"
       :close-on-click-modal="false"
       :close-on-press-escape="false"
     >
-      <el-form :model="form">
+      <el-form :model="formEdit">
         <el-form-item
-          v-for="(v,i) in configRow"
-          :key="i"
-          :label="v.label"
+          v-for="(item,index) in configRow"
+          :key="index"
+          :label="item.label"
           :label-width="formLabelWidth"
         >
           <el-checkbox
-            v-if="v.type==='boolean'"
-            v-model="form[v.prop]"
+            v-if="item.type==='boolean'"
+            v-model="formEdit[item.prop]"
           />
 
           <el-select
-            v-else-if="v.type==='select'"
-            v-model="form[v.prop]"
+            v-else-if="item.type==='select'"
+            v-model="formEdit[item.prop]"
             placeholder="请选择"
           >
             <el-option
-              v-for="item in configRow[i].selectData"
+              v-for="item in configRow[index].selectData"
               :key="item.value"
               :label="item.label"
-              :value="item.value">
+              :value="item.value"
+            >
             </el-option>
           </el-select>
 
           <el-input
             v-else
-            v-model="form[v.prop]"
-            :type="v.type==='textarea'?'textarea': null"
+            v-model="formEdit[item.prop]"
+            :type="item.type==='textarea'?'textarea': null"
             :rows="5"
-            :disabled="v.readOnly"
+            :disabled="item.readOnly"
           ></el-input>
         </el-form-item>
 
@@ -176,10 +228,11 @@
         type: Array,
         default: () => [
           /**
-           * label: ''标签
+           * label: '标签'
            * prop: '数据库对应字段'
-           * readOnly: true || false
-           * hidden: true
+           * readOnly: false
+           * hidden: false
+           * searchable: false
            * type: 'boolean' || 'textarea' || 'select'
            */
           { label: '标题', prop: 'title', readOnly: true },
@@ -208,6 +261,10 @@
         type: Function,
         default: null
       },
+      functionSearch: {
+        type: Function,
+        default: null
+      },
       allowAdd: {
         type: Boolean,
         default: false
@@ -221,8 +278,9 @@
         loading: true,
         dialogEditVisible: false,
         dataList: [],
-        form: {},
-        formLabelWidth: '100px'
+        formEdit: {},
+        formLabelWidth: '100px',
+        formSearch: {}
       }
     },
     computed: {
@@ -231,6 +289,7 @@
           reload: !!this.functionGetList,
           edit: !!this.functionUpdateItem,
           delete: !!this.functionDeleteItem,
+          search: !!this.functionSearch,
           add: this.allowAdd
         }
       }
@@ -252,13 +311,23 @@
       // 获取 router query
       this.pageCurrent = parseInt(this.$route.query[`${this.formName}_page`]) || 1
 
-      this.updateFormDefaults()
+      if (this.functionUpdateItem) {
+        this.updateFormEditDefaults()
+      }
+
+      if (this.functionSearch) {
+        this.updateFormSearchDefaults()
+      }
     },
     mounted() {
       this.loadDataList()
     },
     methods: {
-      updateFormDefaults(obj) {
+      /**
+       * 初始化编辑表单
+       * @param obj 编辑条目时，传入条目 scope.row 以获取初始值
+       */
+      updateFormEditDefaults(obj) {
         let newForm = {}
 
         if (obj) {
@@ -269,18 +338,32 @@
           })
         }
 
-        this.form = newForm
+        this.formEdit = newForm
       },
+      /**
+       * 初始化查询表单（初始值为空）
+       */
+      updateFormSearchDefaults() {
+        const newForm = {}
+
+        this.configRow.forEach(item => {
+          if (item.searchable) {
+            newForm[item.prop] = ''
+          }
+        })
+
+        this.formSearch = newForm
+      },
+      /**
+       * 加载数据列表
+       */
       loadDataList() {
         this.loading = true
 
-        let param = {}
-        if (this.pagination) {
-          param = {
-            limit: this.pageSize,
-            offset: (this.pageCurrent - 1) * this.pageSize
-          }
-        }
+        const param = this.pagination ? {
+          limit: this.pageSize,
+          offset: (this.pageCurrent - 1) * this.pageSize
+        } : {}
 
         this.functionGetList(param).then(res => {
           this.dataList = res.data
@@ -294,9 +377,12 @@
           this.loading = false
         })
       },
-      handleSubmit(item) {
+      /**
+       * 提交更新修改
+       */
+      handleSubmit() {
         this.loading = true
-        this.functionUpdateItem(this.form).then(res => {
+        this.functionUpdateItem(this.formEdit).then(res => {
           this.loadDataList()
           this.$message({
             message: '更新成功！',
@@ -310,14 +396,26 @@
           this.loading = false
         })
       },
+      /**
+       * 处理编辑窗口弹出
+       * @param index
+       * @param item=scope.row
+       */
       handleEdit(index, item) {
-        this.updateFormDefaults(item)
+        this.updateFormEditDefaults(item)
         this.dialogEditVisible = true
       },
+      /**
+       * 关闭编辑窗口
+       */
       handleCloseEdit() {
-        this.updateFormDefaults()
+        this.updateFormEditDefaults()
         this.dialogEditVisible = false
       },
+      /**
+       * 删除条目
+       * @param item
+       */
       handleDelete(item) {
         this.$confirm('此操作将永久删除该条目, 是否继续?', '提示', {
           type: 'warning'
@@ -338,7 +436,41 @@
         }).catch(() => {
         })
       },
-      selectTypeFilter(arr, value) {
+      /**
+       * 搜索
+       */
+      handleSearch() {
+        this.loading = true
+        const searchProps = this.formSearch
+        const paginateParam = this.pagination ? {
+          limit: this.pageSize,
+          offset: (this.pageCurrent - 1) * this.pageSize
+        } : {}
+
+        // console.log('handleSearch', { ...searchProps })
+
+        this.functionSearch({
+          ...paginateParam,
+          ...searchProps
+        }).then(res => {
+          this.dataList = res.data
+          if (this.pagination) {
+            this.dataCount = res.count
+          }
+        }).catch(e => {
+          console.error(e)
+          this.$message.error(e.message)
+        }).finally(() => {
+          this.loading = false
+        })
+      },
+      /**
+       * 获得下拉菜单的 label
+       * @param arr=[{ value: 0, label: '标签' }]
+       * @param value=0
+       * @returns {string|*}
+       */
+      selectTypeLabel(arr, value) {
         if (!arr) return '-'
 
         for (let i = 0; i < arr.length; i++) {
