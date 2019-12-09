@@ -189,8 +189,8 @@
         }
 
         getPostList(paginateParam).then(res => {
-          this.tblAllCount = res.data.count
-          this.tblPostList = res.data.rows
+          this.tblAllCount = res.count
+          this.tblPostList = res.data
         }).catch(e => {
           console.error(e)
         }).finally(() => {
