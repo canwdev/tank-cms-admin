@@ -3,15 +3,27 @@
 
     <el-form ref="form" v-loading="loading" :model="form" label-width="80px">
       <el-form-item label="状态">
-        {{ editMode ? '你正在编辑一篇已存在的文章' : '你正在创建一篇新文章' }}
+        <el-tag>{{ editMode ? `编辑文章 (id=${id})` : '创建文章' }}</el-tag>
+        <template v-if="editMode">
+          <el-tag>
+            <el-link
+              :href="`${frontendBaseUrl}/posts/`+id"
+              target="_blank"
+              title="前端打开"
+            ><i class="el-icon-link"></i>
+            </el-link>
+          </el-tag>
+          <el-tag>创建时间: {{ createdAt }}</el-tag>
+          <el-tag>修改时间: {{ updatedAt }}</el-tag>
+        </template>
       </el-form-item>
 
       <el-form-item label="标题">
         <el-input v-model="form.title"></el-input>
       </el-form-item>
 
-      <el-form-item label="模式">
-        <el-tooltip content="Tip: 富文本和Markdown互不相通，只能存储一种内容" placement="top-start">
+      <el-form-item label="内容格式">
+        <el-tooltip content="一个字段，两种格式；分别干扰，互不存储。" placement="top-start">
           <el-switch
             v-model="form.isMarkdown"
             active-color="#10893E"
@@ -32,6 +44,10 @@
         <tinymce v-model="form.content" :height="500"/>
       </el-form-item>
 
+      <el-form-item label="是否隐藏">
+        <el-checkbox v-model="form.hidden"/>
+      </el-form-item>
+
       <el-form-item>
         <el-button type="primary" @click="onSubmit">{{ editMode ? '更新文章' : '创建文章' }}</el-button>
       </el-form-item>
@@ -42,23 +58,28 @@
 </template>
 
 <script>
-  import { getDetail, updatePost } from '@/api/post'
-  import { formatTime } from '@/utils'
+  import { getPostDetail, updatePost } from '@/api/post'
+  import { parseTime } from '@/utils'
   import Tinymce from '@/components/Tinymce'
   import MarkdownEditor from 'vue-simplemde'
   import 'simplemde/dist/simplemde.min.css'
+  import { frontendBaseUrl } from '@/settings'
 
   export default {
     components: { Tinymce, MarkdownEditor },
     data: () => ({
+      frontendBaseUrl,
       form: {
         title: '',
         content: '',
         contentMarkdown: '',
+        hidden: false,
         isMarkdown: false
       },
       editMode: false,
       id: null,
+      createdAt: null,
+      updatedAt: null,
       loading: false
     }),
     watch: {
@@ -76,17 +97,21 @@
       id && this.fetchPostDetail(id)
     },
     methods: {
-      formatTime,
       fetchPostDetail(id) {
         this.startLoading()
 
-        getDetail({ id }).then(res => {
-          this.form.title = res.data.title
-          this.form.content = res.data.content
-          this.form.contentMarkdown = res.data.content
+        getPostDetail({ id }).then(res => {
+          const { title, content, isMarkdown, hidden, createdAt, updatedAt } = res.data
+
+          this.form.title = title
+          this.form.content = content
+          this.form.contentMarkdown = content
           this.editMode = true
-          this.form.isMarkdown = res.data.isMarkdown
+          this.form.isMarkdown = isMarkdown
+          this.form.hidden = hidden
           this.id = id
+          this.createdAt = parseTime(createdAt)
+          this.updatedAt = parseTime(updatedAt)
         }).catch(e => {
           console.error(e)
           this.form = {}
@@ -97,16 +122,17 @@
       onSubmit() {
         this.startLoading()
 
-        const isMarkdown = this.form.isMarkdown
+        const { title, isMarkdown, hidden } = this.form
 
         updatePost({
           editMode: this.editMode,
           id: this.id,
-          title: this.form.title,
+          title: title,
           content: isMarkdown ? this.form.contentMarkdown : this.form.content,
-          isMarkdown
+          isMarkdown,
+          hidden: hidden
         }).then(res => {
-          console.log(res)
+          // console.log(res)
           this.$message({
             type: 'success',
             message: res.message

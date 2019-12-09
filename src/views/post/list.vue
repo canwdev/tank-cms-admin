@@ -15,22 +15,25 @@
           type="daterange"
           range-separator="至"
           start-placeholder="开始日期"
-          end-placeholder="结束日期">
+          end-placeholder="结束日期"
+        >
         </el-date-picker>
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="onSearchSubmit" icon="el-icon-search">占坑</el-button>
+        <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+        <el-button v-if="searchOn" @click="handleClearSearch">清除搜索</el-button>
       </el-form-item>
     </el-form>
 
     <el-table
-      v-loading="tblLoading"
-      :data="tblData"
+      v-loading="loading"
+      :data="tblPostList"
       style="min-width: 800px"
     >
       <el-table-column
-        type="index"
+        prop="id"
+        label="id"
         width="50"
       >
       </el-table-column>
@@ -47,17 +50,37 @@
         show-overflow-tooltip
       >
       </el-table-column>
+
       <el-table-column
         prop="createdAt"
         width="150"
         label="创建时间"
       >
+        <template slot-scope="scope">
+          {{ parseTime(new Date(scope.row.createdAt)) }}
+        </template>
       </el-table-column>
       <el-table-column
         prop="updatedAt"
         width="150"
         label="更新时间"
       >
+        <template slot-scope="scope">
+          {{ scope.row.updatedAt ? parseTime(new Date(scope.row.updatedAt)) : '/' }}
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        prop="hidden"
+        label="隐藏"
+        width="50"
+      >
+        <template slot-scope="scope">
+          <el-checkbox
+            v-model="scope.row.hidden"
+            disabled
+          />
+        </template>
       </el-table-column>
 
       <el-table-column label="操作" width="200px">
@@ -66,7 +89,7 @@
             :href="`${frontendBaseUrl}/posts/`+scope.row.id"
             target="_blank"
             style="margin-right: 5px;"
-            title="在前端网站打开"
+            title="前端打开"
           ><i class="el-icon-link"></i></el-link>
           <el-link
             target="_blank"
@@ -100,7 +123,7 @@
         background
         layout="prev, pager, next"
         :page-size="tblPageSize"
-        :current-page.sync="tblCurPage"
+        :current-page.sync="tblPageCurrent"
         :total="tblAllCount"
       >
       </el-pagination>
@@ -110,29 +133,35 @@
 </template>
 
 <script>
-  import { deletePost, getList } from '@/api/post'
+  import { deletePost, getPostList, searchPostList } from '@/api/post'
   import { parseTime } from '@/utils'
   import { frontendBaseUrl } from '@/settings'
+
+  const initFormSearch = {
+    title: '',
+    content: '',
+    dateRange: null
+  }
 
   export default {
     data: () => ({
       frontendBaseUrl,
-      formSearch: {
-        title: '',
-        content: '',
-        dateRange: []
-      },
-
-      tblData: [],
-      tblCurPage: 0,
+      formSearch: { ...initFormSearch },
+      searchOn: false,
+      loading: false,
+      tblPostList: [],
+      tblPageCurrent: 1,
       tblPageSize: 12,
-      tblAllCount: null,
-
-      tblLoading: false
+      tblAllCount: null
     }),
     watch: {
-      tblCurPage(nv) {
-        this.fetchList()
+      tblPageCurrent(nv) {
+        if (this.searchOn) {
+          this.handleSearch()
+        } else {
+          this.fetchList()
+        }
+
         // 更新router query
         this.$router.replace({
           path: this.$route.path, query: {
@@ -142,31 +171,30 @@
         })
       }
     },
-    created(){
+    created() {
       // 获取 router query
-      this.pageCurrent = parseInt(this.$route.query['posts_page']) || 1
+      this.tblPageCurrent = parseInt(this.$route.query['posts_page']) || 1
     },
     mounted() {
       this.fetchList()
     },
     methods: {
+      parseTime,
       fetchList() {
-        this.tblLoading = true
-        getList({
+        this.loading = true
+
+        const paginateParam = {
           limit: this.tblPageSize,
-          offset: (this.tblCurPage - 1) * this.tblPageSize
-        }).then(res => {
-          const rows = res.data.rows
+          offset: (this.tblPageCurrent - 1) * this.tblPageSize
+        }
+
+        getPostList(paginateParam).then(res => {
           this.tblAllCount = res.data.count
-          this.tblData = rows.map(v => {
-            v.createdAt = parseTime(new Date(v.createdAt))
-            v.updatedAt = v.updatedAt ? parseTime(new Date(v.updatedAt)) : '/'
-            return v
-          })
+          this.tblPostList = res.data.rows
         }).catch(e => {
           console.error(e)
         }).finally(() => {
-          this.tblLoading = false
+          this.loading = false
         })
       },
       handleView(id) {
@@ -191,7 +219,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.tblLoading = true
+          this.loading = true
 
           deletePost({ id }).then(res => {
             this.$message({
@@ -200,13 +228,45 @@
             })
             this.fetchList()
           }).finally(() => {
-            this.tblLoading = false
+            this.loading = false
           })
         }).catch(() => {
         })
       },
-      onSearchSubmit() {
+      handleSearch() {
+        this.loading = true
 
+        const paginateParam = {
+          limit: this.tblPageSize,
+          offset: (this.tblPageCurrent - 1) * this.tblPageSize
+        }
+
+        const { title, content, dateRange } = this.formSearch
+        const timeQuery = dateRange ? {
+          timeStart: dateRange[0].getTime(),
+          timeEnd: dateRange[1].getTime()
+        } : {}
+
+        searchPostList({
+          ...paginateParam,
+          title,
+          content,
+          ...timeQuery
+        }).then(res => {
+          this.searchOn = true
+          this.tblAllCount = res.count
+          this.tblPostList = res.data
+        }).catch(e => {
+          console.log(e)
+        }).finally(() => {
+          this.loading = false
+        })
+      },
+      handleClearSearch() {
+        this.searchOn = false
+        this.formSearch = { ...initFormSearch }
+        this.tblPageCurrent = 1
+        this.fetchList()
       }
     }
   }

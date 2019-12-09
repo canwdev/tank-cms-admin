@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import { getDetail } from '@/api/post'
+  import { getPostDetail } from '@/api/post'
   import { formatTime } from '@/utils'
 
   export default {
@@ -36,7 +36,7 @@
       fetchPostDetail() {
         const id = this.$route.query.id
 
-        getDetail({ id }).then(res => {
+        getPostDetail({ id }).then(res => {
           this.postData = res.data
         }).catch(e => {
           console.error(e)

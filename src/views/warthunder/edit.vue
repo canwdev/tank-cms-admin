@@ -7,7 +7,7 @@
 
 <script>
   import JsonEditor from '@/components/JsonEditor'
-  import { getDetail, updatePost } from '@/api/post'
+  import { getPostDetail, updatePost } from '@/api/post'
 
   const DEMO_ID = 43
 
@@ -25,7 +25,7 @@
     methods: {
       fetchJSON() {
         this.loading = true
-        getDetail({ id: DEMO_ID }).then(res => {
+        getPostDetail({ id: DEMO_ID }).then(res => {
           this.value = JSON.parse(res.data.content)
         }).finally(() => {
           this.loading = false

@@ -69,7 +69,7 @@ export function getRecruit(params) {
   })
 }
 
-// params={limit?, offset?, title, }
+// params={limit?, offset?, title, desc, t_category_id, t_area_id, t_job_id, priority}
 export function searchRecruit(params) {
   // const { limit, offset } = params
 

@@ -44,7 +44,8 @@
             { label: '招聘类别id', prop: 't_category_id', type: 'select' ,selectData: convertDropdownData(recruitTypes.category), searchable: true },
             { label: '招聘地区id', prop: 't_area_id', type: 'select' ,selectData: convertDropdownData(recruitTypes.area), searchable: true },
             { label: '职业分类id', prop: 't_job_id', type: 'select' ,selectData: convertDropdownData(recruitTypes.job), searchable: true },
-            { label: '隐藏', prop: 'hidden', type: 'boolean', searchable: true },
+            { label: '隐藏', prop: 'hidden', type: 'boolean', searchable: false
+             },
             { label: '优先级', prop: 'priority', searchable: true },
           ]"
           :pagination="true"

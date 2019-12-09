@@ -66,6 +66,7 @@
 
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+        <el-button v-if="searchOn" @click="handleClearSearch">清除搜索</el-button>
       </el-form-item>
     </el-form>
 
@@ -274,13 +275,14 @@
       return {
         dataCount: 0,
         pageOffset: 0,
-        pageCurrent: 0,
+        pageCurrent: 1,
         loading: true,
         dialogEditVisible: false,
         dataList: [],
         formEdit: {},
         formLabelWidth: '100px',
-        formSearch: {}
+        formSearch: {},
+        searchOn: false // 处于搜索状态
       }
     },
     computed: {
@@ -296,7 +298,11 @@
     },
     watch: {
       pageCurrent(nv) {
-        this.loadDataList()
+        if (this.searchOn) {
+          this.handleSearch()
+        } else {
+          this.loadDataList()
+        }
 
         // 更新router query
         this.$router.replace({
@@ -453,6 +459,7 @@
           ...paginateParam,
           ...searchProps
         }).then(res => {
+          this.searchOn = true
           this.dataList = res.data
           if (this.pagination) {
             this.dataCount = res.count
@@ -462,7 +469,17 @@
           this.$message.error(e.message)
         }).finally(() => {
           this.loading = false
+
         })
+      },
+      /**
+       * 取消搜索
+       */
+      handleClearSearch() {
+        this.searchOn = false
+        this.updateFormSearchDefaults()
+        this.pageCurrent = 1
+        this.loadDataList()
       },
       /**
        * 获得下拉菜单的 label
