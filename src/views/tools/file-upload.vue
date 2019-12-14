@@ -21,23 +21,26 @@
     </el-upload>
 
     <div class="actions-wrap">
-      <el-button type="primary" icon="el-icon-refresh" @click="getList"></el-button>
+      <el-button type="primary" icon="el-icon-refresh" @click="getList">刷新文件列表</el-button>
     </div>
 
     <el-table
       v-loading="loading"
       :data="uploadedList"
-      style="width: 100%">
+      style="width: 100%"
+    >
       <el-table-column
         prop="serverPath"
-        label="Web相对路径">
+        :label="`相对服务器地址 ${baseHost}`"
+      >
         <template slot-scope="scope">
           <el-input :value="scope.row.serverPath" readonly></el-input>
         </template>
       </el-table-column>
       <el-table-column
         prop="webPath"
-        label="Web绝对路径">
+        label="绝对服务器地址"
+      >
         <template slot-scope="scope">
           <el-link type="primary" :href="scope.row.webPath" target="_blank">{{ scope.row.webPath }}</el-link>
         </template>
@@ -47,7 +50,8 @@
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.row.serverPath)">删除
+            @click="handleDelete(scope.row.serverPath)"
+          >删除
           </el-button>
         </template>
       </el-table-column>
@@ -61,13 +65,14 @@
   import { deleteUploadedFile, getUploadedList } from '@/api/tools'
 
   const baseApi = process.env.VUE_APP_BASE_API
-  const baseHost = baseApi.substring(0, baseApi.lastIndexOf('/'))
+  // const baseHost = baseApi.substring(0, baseApi.lastIndexOf('/'))
 
   export default {
     data: () => ({
       loading: false,
       uploadAction: baseApi + '/tools/upload',
-      uploadedList: []
+      uploadedList: [],
+      baseHost: ''
     }),
     computed: {
       ...mapGetters([
@@ -101,15 +106,13 @@
         this.loading = true
         getUploadedList().then(res => {
           // console.log(res)
-          const files = []
-          res.data.files.forEach(v => {
-            files.push({
-              serverPath: v,
-              webPath: baseHost + v
-            })
-          })
+          const { files, host } = res.data
 
-          this.uploadedList = files.reverse()
+          this.baseHost = host
+          this.uploadedList = files.map(name => ({
+            serverPath: name,
+            webPath: host + name
+          }))
         }).catch(e => {
           console.log(e)
         }).finally(() => {
@@ -117,10 +120,9 @@
         })
       },
       handleDelete(serverPath) {
-        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        this.$confirm('此操作将永久删除服务器上的文件, 是否继续?', '提示', {
           type: 'warning'
         }).then(() => {
-
           this.loading = true
 
           const fileName = serverPath.substring('/upload/'.length)
@@ -135,7 +137,6 @@
             this.loading = false
             this.getList()
           })
-
         }).catch(() => {
         })
       }
@@ -146,12 +147,6 @@
 <style lang="stylus" scoped>
   .common-content-view {
     position: relative;
-
-    .actions-wrap {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-    }
 
     >>> .my-uploader {
       .el-upload, .el-upload-dragger {
